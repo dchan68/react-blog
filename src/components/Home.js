@@ -12,13 +12,6 @@ function Home() {
     console.log("Hello " + name);
   };
 
-  function handleDelete(id) {
-    const newBlogs = blogs.filter((blog) => {
-      return blog.id != id;
-    });
-    setBlogs(newBlogs);
-  }
-
   useEffect(function () {
     fetch("http://localhost:8000/blogs")
       .then((res) => {
@@ -32,16 +25,13 @@ function Home() {
 
   return (
     <div className="home">
-      {blogs && (
-        <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />
-      )}
+      {blogs && <BlogList blogs={blogs} title="All Blogs" />}
       {blogs && (
         <BlogList
           blogs={blogs.filter((blog) => {
             return blog.author === "mario";
           })}
           title="Mario's Blogs"
-          handleDelete={handleDelete}
         />
       )}
       <button

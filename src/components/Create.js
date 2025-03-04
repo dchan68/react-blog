@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Create() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("mario");
   const [isPending, setIsPending] = useState(false);
+
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -17,6 +20,8 @@ function Create() {
     }).then(function () {
       console.log("new blog added");
       setIsPending(false);
+      //navigate(-1);  //go back to previous page user was on
+      navigate("/"); //redirect back to home page
     });
   }
   return (

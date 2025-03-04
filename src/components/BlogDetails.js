@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useFetch from "../useFetch";
 
 function BlogDetails() {
@@ -9,6 +9,15 @@ function BlogDetails() {
     error,
     isPending,
   } = useFetch("http://localhost:8000/blogs/" + id);
+  const navigate = useNavigate();
+
+  function handleClick() {
+    fetch("http://localhost:8000/blogs/" + id, {
+      method: "DELETE",
+    }).then(function () {
+      navigate("/");
+    });
+  }
   return (
     <div className="blog-details">
       {isPending && <div>Loading...</div>}
@@ -19,6 +28,7 @@ function BlogDetails() {
             {blog.title}
             <p>Written by {blog.author}</p>
             <div>{blog.body}</div>
+            <button onClick={handleClick}>Delete Blog</button>
           </h2>
         </article>
       )}
